@@ -1,5 +1,7 @@
 package com.baizhi.service.impl;
 
+import com.baizhi.aspect.AddAndSelectAnnotation;
+import com.baizhi.aspect.ClearAnnotation;
 import com.baizhi.dao.UserDao;
 import com.baizhi.entity.User;
 import com.baizhi.service.UserService;
@@ -54,6 +56,7 @@ public class UserServiceImpl implements UserService {
      * @return 对象列表
      */
     @Override
+    @AddAndSelectAnnotation(value = "查询")
     public List<User> queryAll(User user) {
         return this.userDao.queryAll(user);
     }
@@ -65,6 +68,7 @@ public class UserServiceImpl implements UserService {
      * @return 实例对象
      */
     @Override
+    @ClearAnnotation(value = "添加")
     public User insert(User user) {
         this.userDao.insert(user);
         return user;
@@ -77,6 +81,7 @@ public class UserServiceImpl implements UserService {
      * @return 实例对象
      */
     @Override
+    @ClearAnnotation(value = "修改")
     public User update(User user) {
         this.userDao.update(user);
         return this.queryById(user.getId());
@@ -89,6 +94,7 @@ public class UserServiceImpl implements UserService {
      * @return 是否成功
      */
     @Override
+    @ClearAnnotation(value = "删除")
     public boolean deleteById(Integer id) {
         return this.userDao.deleteById(id) > 0;
     }

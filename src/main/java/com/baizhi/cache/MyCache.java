@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 
 public class MyCache implements Cache {
 
-    private String id;
+    private final String id;
 
     public MyCache(String id) {
         this.id = id;
@@ -38,7 +38,8 @@ public class MyCache implements Cache {
 
     @Override
     public void clear() {
-
+        RedisTemplate redisTemplate = (RedisTemplate) MyWebAware.getByName("redisTemplate");
+        redisTemplate.opsForHash().delete(id);
     }
 
     @Override
